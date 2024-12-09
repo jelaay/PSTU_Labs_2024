@@ -12,16 +12,16 @@ int main()
     cin >> s;
     tmp = 0;
     flag = false;
-    while (n != 0)
+    while (n != 0 && !flag)
     {
         tmp = n % 10;
         n /=10;
         if (tmp == s)
         {
             flag = true;
+            cout << "Цифра S входит в запись числа N." << endl;
         }
     }
-    if (flag) { cout << "Цифра S входит в запись числа N." << endl; }
-    else { cout << "Цифра S не входит в запись числа N." << endl; }
+    if (!flag) { cout << "Цифра S не входит в запись числа N." << endl; }
     return 0;
 }
