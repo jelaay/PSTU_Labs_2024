@@ -64,7 +64,7 @@ eq_newton - сделано
 
 eq_iteration - сделано
 
-recursion - не сделано
+recursion - сделано
 
 pointer_1 - сделано 
 
