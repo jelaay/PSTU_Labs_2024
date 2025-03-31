@@ -1,100 +1,82 @@
 ﻿#include <iostream>
 using namespace std;
-/*
-//функция проверки наличия фрезей на вертикале, если true - то свободно
-bool vertical(n)
+
+int arr[8][8] = { 0 }; // Глобальная переменная, как у вас было
+
+// Проверка вертикали и горизонтали
+bool safe(int row, int col) 
 {
-    int v = n;
-    bool answ = true;
-    for (int j = 0; j < 8; j++)
+    // Проверяем вертикаль (столбец)
+    for (int i = 0; i < 8; i++) 
     {
-        if (arr[v][j] != 0)
-        {
-            answ = false;
-            break;
-        }
+        if (arr[i][col] != 0) return false;
     }
-    return answ;
+
+    // Проверяем горизонталь (строка)
+    for (int j = 0; j < 8; j++) 
+    {
+        if (arr[row][j] != 0) return false;
+    }
+
+    // Проверяем диагонали
+    for (int i = row, j = col; i >= 0 && j >= 0; i--, j--) 
+    {
+        if (arr[i][j] != 0) return false;
+    }
+
+    for (int i = row, j = col; i < 8 && j >= 0; i++, j--) 
+    {
+        if (arr[i][j] != 0) return false;
+    }
+
+    for (int i = row, j = col; i >= 0 && j < 8; i--, j++) 
+    {
+        if (arr[i][j] != 0) return false;
+    }
+
+    for (int i = row, j = col; i < 8 && j < 8; i++, j++) 
+    {
+        if (arr[i][j] != 0) return false;
+    }
+
+    return true;
 }
 
-//функция првоерки наличия фрезей на горизонтале, если true - то свободно
-bool horizontal(n)
+bool queenPos(int col) 
 {
-    int h = n;
-    bool answ = true;
-    for (int i = 0; i < 8; i++)
+    if (col >= 8)
     {
-        if (arr[i][h] != 0)
-        {
-            answ = false;
-            break;
-        }
-    }
-    return answ;
-}
-
-bool diagonal(n)
-{
-    int g = n;
-    bool answ = true;
-    for (int i = 0; i < 8; i++)
-    {
-        if (arr[i][i] != 0)
-        {
-            answ = false;
-            break;
-        }
-    }
-    return answ;
-}*/
-
-int main()
-{
-    int arr[8][8] = { 0 }; //создали массив, состоящий из 0, где 0 - пустая (не занятая ферзём) клетка
-    int q = 0;
-
-    for (int i = 0; i < 8; i++) //вывел массив (доску)
-    {
-        for (int j = 0; j < 8; j++)
-        {
-            cout << arr[i][j]<<" ";
-        }   
-        cout << endl;
+        return true;
     }
 
-    /*
-    while (q < 8)
-    {
-        for (int i = 0; i < 8; i++) // идем по столбцам
-        {
-            if (vertical(i) == true)
+    for (int i = 0; i < 8; i++) {
+        if (safe(i, col)) {
+            arr[i][col] = 1;
+            if (queenPos(col + 1))
             {
-                for (int j = 0; j < 8; j++) //идём по строкам
-                {
-                    if (horizontal(j) == true)
-                    {
-                        for (int g = 0; g < 8; g++) //проверяем диагональ
-                        {
-                            if (diagonal(g) == true)
-                            {
-                                arr[g][g] = 1;
-                                break;
-
-                            }
-                        }
-                    }
-                }
+                return true;
             }
-
+            arr[i][col] = 0; 
         }
     }
-    for (int i = 0; i < 8; i++) //вывел массив (доску)
-    {
-        for (int j = 0; j < 8; j++)
+    return false;
+}
+
+int main() {
+    if (queenPos(0)) {
+        // Выводим доску
+        for (int i = 0; i < 8; i++) 
         {
-            cout << arr[i][j] << " ";
+            for (int j = 0; j < 8; j++) 
+            {
+                cout << arr[i][j] << " ";
+            }
+            cout << endl;
         }
-        cout << endl;
-    }*/
+    }
+    else {
+        cout << "Решение не найдено" << endl;
+    }
+
     return 0;
 }
